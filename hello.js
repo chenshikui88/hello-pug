@@ -30,9 +30,9 @@ function getNext() {
     });
 };
 
-casper.start();
+casper.start('http://ris.szfdc.gov.cn/credit/showcjgs/esfcjgs.aspx');
 
-casper.thenOpen('http://ris.szfdc.gov.cn/credit/showcjgs/esfcjgs.aspx');
+//casper.thenOpen('http://ris.szfdc.gov.cn/credit/showcjgs/esfcjgs.aspx');
 casper.then(function (){
     casper.waitForSelector('#ctl00_ContentPlaceHolder1_hypNs', getNum);
 });

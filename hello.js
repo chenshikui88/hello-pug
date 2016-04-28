@@ -2,6 +2,7 @@ var casper = require('casper').create({
     logLevel: "debug",
     verbose: true
 });
+
 var seltbl = '#ctl00_ContentPlaceHolder1_clientList1'; 
 var labelArr = ["#ctl00_ContentPlaceHolder1_hypBa", 
 "#ctl00_ContentPlaceHolder1_hypFt",
@@ -14,11 +15,17 @@ var label;
 function getNum() {
     var num = casper.evaluate(function getNumFromPage() {
         var list = document.getElementById('ctl00_ContentPlaceHolder1_clientList1');
-        var c = list.rows.length;
-        var r = list.rows[0].cells.length;
-        return list.rows[c-1].cells[r-1];
+        var r = list.rows.length;
+        var c = list.rows[0].cells.length;
+        for (var i=0; i<r; i++) {
+            if (list.rows[i].cells[0].innerText == '住宅'){
+                return list.rows[i].cells[1].innerText + " " + list.rows[i].cells[2].innerText;
+            }
+        }
+        return null; 
     });
-    console.log(num.innerText);
+    if (num)
+        console.log(num);
 };
 
 function getNext() {
@@ -29,6 +36,12 @@ function getNext() {
         casper.waitForSelectorTextChange(seltbl, getNum); 
     });
 };
+
+var curTime = new Date();
+var mon = curTime.getMonth() + 1;
+var day = curTime.getDate();
+var year = curTime.getFullYear();
+var myfile = "fang-" + year + "-" + mon + "-" + day + ".txt";
 
 casper.start();
 

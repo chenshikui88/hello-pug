@@ -10,22 +10,27 @@ var labelArr = ["#ctl00_ContentPlaceHolder1_hypBa",
 "#ctl00_ContentPlaceHolder1_hypLh",
 "#ctl00_ContentPlaceHolder1_hypNs",
 "#ctl00_ContentPlaceHolder1_hypYt"];
+var html = 'http://ris.szfdc.gov.cn/credit/showcjgs/esfcjgs.aspx';
 var label;
 
 function getNum() {
     var num = casper.evaluate(function getNumFromPage() {
         var list = document.getElementById('ctl00_ContentPlaceHolder1_clientList1');
+        var dist = document.getElementById('ctl00_ContentPlaceHolder1_lbldistrict1');
         var r = list.rows.length;
         var c = list.rows[0].cells.length;
-        for (var i=0; i<r; i++) {
-            if (list.rows[i].cells[0].innerText == '住宅'){
-                return list.rows[i].cells[1].innerText + " " + list.rows[i].cells[2].innerText;
-            }
+        var data = "";
+        for (var i=1/*index0 is title*/; i<r; i++) {
+            data += dist.innerText + " ";
+            data += list.rows[i].cells[0].innerText.trim() + " ";
+            data += list.rows[i].cells[1].innerText.trim() + "     ";
+            data += list.rows[i].cells[2].innerText.trim() + "\n";
         }
-        return null; 
+        return data; 
     });
-    if (num)
-        console.log(num);
+    if (num) {
+        fs.write(myfile, num, 'a'); 
+    }
 };
 
 function getNext() {
@@ -42,12 +47,12 @@ var mon = curTime.getMonth() + 1;
 var day = curTime.getDate();
 var year = curTime.getFullYear();
 var myfile = "fang-" + year + "-" + mon + "-" + day + ".txt";
+var fs = require('fs');
 
-casper.start();
+casper.start(html);
 
-casper.thenOpen('http://ris.szfdc.gov.cn/credit/showcjgs/esfcjgs.aspx');
 casper.then(function (){
-    casper.waitForSelector('#ctl00_ContentPlaceHolder1_hypNs', getNum);
+    casper.waitForSelector(labelArr[0], getNum);
 });
 
 labelArr.forEach( function openEach(mylabel) {

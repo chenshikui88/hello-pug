@@ -9,7 +9,8 @@ var day = curTime.getDate();
 var year = curTime.getFullYear();
 var fs = require('fs');
 
-var myfile = "fang1-" + year + "-" + mon + "-" + day + ".txt";
+var path = "/home/douglas/pybug/data/";
+var myfile = path + "fang1-" + year + "-" + mon + "-" + day + ".txt";
 var html = 'http://ris.szfdc.gov.cn/credit/showcjgs/ysfcjgs.aspx?cjType=0';
 var seltbl = '#clientList2'; 
 
@@ -25,11 +26,12 @@ function getNum() {
     var num = casper.evaluate(function getNumFromPage() {
         var list = document.getElementById('clientList2');
         var dist = document.getElementById('lbldistrict2');
+        var now  = document.getElementById('lblCurTime2');
         var r = list.rows.length;
         var c = list.rows[0].cells.length;
         var data = "";
         for (var i=1/*index0 is title*/; i<r; i++) {
-            data += dist.innerText + " ";
+            data += now.innerText + " " + dist.innerText + " ";
             for (var j=0; j<c; j++) {
                 data += list.rows[i].cells[j].innerText.trim() + " ";
             }

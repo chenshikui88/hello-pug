@@ -38,9 +38,10 @@ function getDeal() {
     var content = casper.evaluate(function(){
         var p = document.getElementById('js_content').getElementsByTagName('p');
         var len = p.length;
-        var data = "";
+        var data = ""; 
         var str1 = "建筑";
         var str2 = "面积";
+        var k = 0;
 
         for (var i=0; i<len; i++) {
             if (p[i].innerText.indexOf(str1)<0 && p[i].innerText.indexOf(str2)<0) 
@@ -49,10 +50,13 @@ function getDeal() {
         }
         return data; 
     }); 
-    console.log(content);
-    content.forEach(function(c){
-        console.log(c+'\n');
-    });
+    //console.log(content);
+    var myfile = casper.evaluate(function(){
+        return document.title.substr(6,16);
+    }); 
+    myfile += ".txt";
+    console.log(myfile);
+    fs.write(myfile, content, 'a');
 };
 
 casper.start(html);

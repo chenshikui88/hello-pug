@@ -29,7 +29,8 @@ function getData() {
     });
     if (num) {
         num.forEach(function(param){
-            fs.write(myfile, param+'\n', 'a'); 
+            console.log(param);
+            //fs.write(myfile, param+'\n', 'a'); 
         });
     }
 };
@@ -80,17 +81,11 @@ casper.then(function(){
         casper.then(function debug3(){
             getDeal();
         });
-/*
+
+/* Get last 10 historys.
 casper.then(function debug3(){
     num.forEach(function debug2(link){
-        casper.then(function debug1(link){
-            console.log(link);
-            var lk = casper.evaluate(function(link) {
-                return encodeURI(link);
-            });
-            console.log(lk);
-        });
-        casper.thenOpen(lk, function(){
+        casper.thenOpen(link, function(){
             casper.waitForSelector('#js_content');
         });
         casper.then(function(){
@@ -99,5 +94,6 @@ casper.then(function debug3(){
     });
 });
 */
+
 casper.run();
 

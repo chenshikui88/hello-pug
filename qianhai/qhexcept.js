@@ -45,8 +45,8 @@ function getDeal() {
         var k = 0;
 
         for (var i=0; i<len; i++) {
-            if (p[i].innerText.indexOf(str1)<0 && p[i].innerText.indexOf(str2)<0) 
-                continue;
+            //if (p[i].innerText.indexOf(str1)<0 && p[i].innerText.indexOf(str2)<0) 
+            //    continue;
             data += p[i].innerText + '\n';
         }
         return data; 
@@ -74,7 +74,7 @@ casper.then(function (){
 });
 
 casper.then(function(){
-    casper.thenOpen(num[0], function debug2(){
+    casper.thenOpen('http://mp.weixin.qq.com/s?timestamp=1462848173&src=3&ver=1&signature=YUhMYt5ek1bSH9SovwJMX8kq-*sXqDVMjdRU1swypjk4K5gveNore4ua92F3-H-2uLDzw*TTJWsg3n**Kg5u6N6Oi87QnDGczi8k7MEkNIkYjOLvhBrD6MDylJKQvsvAi2HaG4Ma1mQ0VmIivw8ER1Ve42qVYp5dt5bOi6bT1r0=', function debug2(){ // num[5],num[8],
         casper.waitForSelector('#js_content');
     });
 });

@@ -1,4 +1,5 @@
 var html = 'http://weixin.sogou.com/weixin?type=1&query=wozaiqianhai&ie=utf8&_sug_=y&_sug_type_=';
+var thisurl = 'http://mp.weixin.qq.com/s?__biz=MzI0MjA4MDA4MA==&mid=210492574&idx=1&sn=9abe95fc369a891245be978303f774b0&scene=4#wechat_redirect';
 var path = "./";
 var myfile = path + ""; 
 var selector = '#sogou_vr_11002301_box_0';
@@ -53,7 +54,7 @@ function getDeal() {
     }); 
     console.log(content);
     var myfile = casper.evaluate(function(){
-        return document.title.substr(6,16);
+        return document.title.substr(5,19);
     }); 
     myfile += ".txt";
     //console.log(myfile);
@@ -74,7 +75,7 @@ casper.then(function (){
 });
 
 casper.then(function(){
-    casper.thenOpen('http://mp.weixin.qq.com/s?timestamp=1462848173&src=3&ver=1&signature=YUhMYt5ek1bSH9SovwJMX8kq-*sXqDVMjdRU1swypjk4K5gveNore4ua92F3-H-2uLDzw*TTJWsg3n**Kg5u6N6Oi87QnDGczi8k7MEkNIkYjOLvhBrD6MDylJKQvsvAi2HaG4Ma1mQ0VmIivw8ER1Ve42qVYp5dt5bOi6bT1r0=', function debug2(){ // num[5],num[8],
+    casper.thenOpen(thisurl, function debug2(){ // num[5],num[8],
         casper.waitForSelector('#js_content');
     });
 });

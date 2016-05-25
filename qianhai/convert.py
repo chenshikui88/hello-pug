@@ -8,9 +8,13 @@ def proc(fs):
 	ffd = open(fs)
 	fout = open(out, 'w')
 	num = 0
+	elem = 0;
 
 	for line in ffd.readlines():
 		if line.find('201') == 0 and num > 0:
+			if elem < 10: # add unit price
+				fout.write('0')
+			elem = 0
 			fout.write('\n')
 		#print line.strip('\n').replace(' ',"").strip('\n'),
 		str = line.strip('\n').replace("　","").replace(" ","").replace(" ","")
@@ -19,6 +23,7 @@ def proc(fs):
 			continue
 		fout.write(''.join(str))
 		fout.write(' ')
+		elem+=1
 		num+=1
 
 	fout.write('\n')

@@ -1,6 +1,6 @@
 var html = 'http://sz.lianjia.com/fangjia/';
 var date = new Date();
-var path = "./";
+var path = '/home/douglas/pybug/hello-pug/trunk/lianjia/'; 
 var myfile = path + 'market.txt';
 var selector = '#wrapperCon';
 var num;

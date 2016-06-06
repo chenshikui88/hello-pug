@@ -4,9 +4,10 @@ var build = args[4];
 var html = 'http://sz.lianjia.com/ershoufang/rs' + build; // args[4] is first arg of this js
 var date = new Date();
 var path = "./";
-var myfile = path + date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-'; 
+var myfile = path + date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + build + ".txt";
 var selector = '#house-lst';
 var num  = new Array();
+var pages = new Array(10);
 
 var casper = require('casper').create({
     logLevel: "debug",
@@ -15,7 +16,6 @@ var casper = require('casper').create({
 var fs = require('fs');
 
 function getData() {
-    myfile += build + ".txt";
     casper.waitForSelector(selector);
     num = casper.evaluate(function getNumFromPage() {
         var table = document.getElementById('house-lst');
@@ -46,7 +46,7 @@ function getData() {
     });
     if (num) {
         num.forEach(function(param){
-            console.log(param);
+            //console.log(param);
             fs.write(myfile, param+'\n', 'a'); 
         });
     }
@@ -54,8 +54,33 @@ function getData() {
 
 casper.start(html);
 
+casper.then(function getPages(){
+    casper.waitForSelector('#matchid');
+    pages = casper.evaluate(function (){
+        var pid = document.getElementById('matchid');
+        var list = pid.children[0].children[1].getElementsByClassName('page-box house-lst-page-box')[0];
+        //return list.innerText;
+        list = list.getElementsByTagName('a');
+        var data = new Array(list.length);
+        
+        for (var m = 0; m < list.length; m++) {
+            data[m] = list[m].getAttribute('href');
+            var a = document.createElement('a');
+            a.href = data[m];
+            data[m] = a.href;
+        }
+        return data; 
+    });
+    //console.log(pages);
+});
+
 casper.then(function debug3(){
-    getData();
+    pages.forEach(function getLinks(url) {
+        console.log(url);
+        casper.thenOpen(url, function () {
+            getData()
+        });
+    });
 });
 
 casper.run();

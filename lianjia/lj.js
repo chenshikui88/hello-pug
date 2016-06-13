@@ -4,7 +4,8 @@ var build = args[4];
 var html = 'http://sz.lianjia.com/ershoufang/rs' + build; // args[4] is first arg of this js
 var date = new Date();
 var path = "./";
-var myfile = path + date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + build + ".txt";
+var month = date.getMonth()+1;
+var myfile = path + date.getFullYear() + '-' + month + '-' + date.getDate() + '-' + build + ".txt";
 var selector = '#house-lst';
 var num  = new Array();
 var pages = new Array(10);
@@ -25,22 +26,23 @@ function getData() {
         
         for (var i=0/*skip title*/; i<r; i++) {
             var now = new Date();
-            var text = now.getFullYear() + "." + now.getMonth() + "." + now.getDate() + ' ';
+            var mon = now.getMonth()+1;
+            var text = now.getFullYear() + "." + mon + "." + now.getDate() + ' ';
             var panel = list[i].getElementsByClassName('info-panel')[0];
             var info = panel.childNodes[1];
             info = info.childNodes[0].children;
             for (var m=0; m<info.length; m++) {
                 text += info[m].innerText.replace(/\s+/g,'') + ' ';
             }
-            data[i] = text;
+            data[i] = text;	// building info
 
             info = panel.children[2];
-            text = info.children[0].innerText + ' ' + info.children[1].innerText.replace(/\s+/g,'');
-            data[i] += text + ' ';
+            text = info.children[0].innerText + ' ' + info.children[1].innerText.replace(/\s+/g,'').replace(/[^0-9]/ig,'');
+            data[i] += text + ' '; // unit price
 
             info = panel.children[3];
             text = info.children[0].children[0].innerText; 
-            data[i] += text;
+            data[i] += text.replace(/[^0-9]/ig,'');	// viewers
         }
         return data; 
     });

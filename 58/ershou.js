@@ -25,12 +25,13 @@ function getData() {
         var list  = table.getElementsByClassName('tbimg')[0].children[1]; // tbody
         var m = 0;
         for (var i=0; i<list.childElementCount; i++) {
-            var one = list.children[i];//.children[1].children[1].getElementsByClassName('qj-listjjr')[0].innerText;
-            var jjr = one.innerText;//.getElementsByClassName('qj-listjjr')[0].innerText;
+            var one = list.children[i];
+            var jjr = one.innerText;
             if (jjr.indexOf('经纪') > 0 || jjr.indexOf('室') < 0 || jjr.indexOf('房源更多') > 0)
                 continue;
-            //data[m++] = one.children[1].children[0].children[0].getAttribute('a'); 
-            data[m] = '[ ' + m + ' ]\n' + one.innerText;
+            //jjr = one.getElementsByClassName('t')[0].getElementsByClassName('qj-listleft')[0];
+            data[m] = '[ ' + m + ' ]\n' + jjr + '\n';
+            data[m] += one.getElementsByClassName('t')[0].getElementsByClassName('bthead')[0].getElementsByTagName('a')[0].getAttribute('href'); 
             m++;
         }
         return data;
@@ -46,7 +47,7 @@ casper.start(html);
 
 casper.then(function debug() {
     for (var i=0; i<pages.length; i++) {
-        var p = i + 1;
+        var p = i + 14;
         pages[i] = 'pn' + p;
     }
 });

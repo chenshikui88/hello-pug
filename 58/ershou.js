@@ -1,6 +1,3 @@
-var system = require('system');
-var args = system.args;
-var build = args[4];
 var html = 'http://sz.58.com/ershoufang/'; // args[4] is first arg of this js
 var date = new Date();
 var path = "./";
@@ -24,16 +21,24 @@ function getData() {
         //.getElementById('main');//.getElementById('infolist');//.getElementsByClassName('tbimg')[0];
         var list  = table.getElementsByClassName('tbimg')[0].children[1]; // tbody
         var m = 0;
+        var n = 0;
         for (var i=0; i<list.childElementCount; i++) {
             var one = list.children[i];
             var jjr = one.innerText;
-            if (jjr.indexOf('经纪') > 0 || jjr.indexOf('室') < 0 || jjr.indexOf('房源更多') > 0)
+            if (jjr.indexOf('经纪') > 0 || jjr.indexOf('室') < 0 || jjr.indexOf('房源更多') > 0) {
+                n++;
                 continue;
-            //jjr = one.getElementsByClassName('t')[0].getElementsByClassName('qj-listleft')[0];
+            }
+            //var price = one.getElementsByClassName('t')[0].getElementsByClassName('qj-listright btall')[0].getElementsByClassName('pri')[0].innerText.trim();
+            //if (parseInt(price) < 200) // skip < 2000 thousands 
+            //    continue;
+            
             data[m] = '[ ' + m + ' ]\n' + jjr + '\n';
             data[m] += one.getElementsByClassName('t')[0].getElementsByClassName('bthead')[0].getElementsByTagName('a')[0].getAttribute('href'); 
             m++;
         }
+        //if (0 == m)
+        //    data[0] = n;
         return data;
     });
     //console.log(num);
@@ -47,7 +52,7 @@ casper.start(html);
 
 casper.then(function debug() {
     for (var i=0; i<pages.length; i++) {
-        var p = i + 14;
+        var p = i + 1;
         pages[i] = 'pn' + p;
     }
 });

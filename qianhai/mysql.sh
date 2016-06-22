@@ -7,7 +7,7 @@ load data infile '/home/douglas/pybug/hello-pug/trunk/qianhai/data.utf8' into ta
 ALTER TABLE table_name CHANGE old_field_name new_field_name field_type;
 
 create database test default character set utf8;
-create table `qianhai` ( `date` char(20) character set utf8, `build` char(50) character set utf8, `bno` char(32) character set utf8, `no` char(16) character set utf8, `floor` char(16) character set utf8, `square` char(16) character set utf8, `type` char(32) character set utf8, `direct` char(8) character set utf8, `deal` char(128) character set utf8, `price` char(32) character set utf8) DEFAULT CHARSET=utf8;
+create table `qianhai` ( `date` datetime character set utf8, `build` char(50) character set utf8, `bno` char(32) character set utf8, `no` char(16) character set utf8, `floor` char(16) character set utf8, `square` char(16) character set utf8, `type` char(32) character set utf8, `direct` char(8) character set utf8, `deal` char(128) character set utf8, `price` char(32) character set utf8) DEFAULT CHARSET=utf8;
 
 最简单的完美修改方法，修改mysql的my.cnf文件中的字符集键值（注意配置的字段细节）：
 1、在[client]字段里加入default-character-set=utf8，如下：

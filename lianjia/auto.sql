@@ -13,3 +13,4 @@ select date,build,count(*),avg(price) from today where build like '鸿瑞花园%
 select date,build,count(*),avg(price) from today where build like '鼎太风华%' && view>0;
 select date,build,count(*),avg(price) from today where build like '诺德假日%' && view>0;
 select date,build,count(*),avg(price) from today where build like '中海阳光玫瑰%' && view>0;
+select date,build,count(*),avg(price) from today where build like '招商名仕%' && view>0;

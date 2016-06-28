@@ -2,7 +2,7 @@ var html = 'http://sz.58.com/ershoufang/'; // args[4] is first arg of this js
 var date = new Date();
 var path = "/home/douglas/pybug/hello-pug/trunk/58/";
 var month = date.getMonth()+1;
-var myfile = path + date.getFullYear() + '-' + month + '-' + date.getDate() + date.getHours() +  ".txt";
+var myfile = path + date.getFullYear() + '-' + month + '-' + date.getDate() + '-' + date.getHours() +  ".txt";
 var selector = '#bottom_google_ad';
 var num;
 var pages = new Array(99);

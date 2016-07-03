@@ -5,13 +5,24 @@ var month = date.getMonth()+1;
 var myfile = path + date.getFullYear() + '-' + month + '-' + date.getDate() + '-' + date.getHours() +  ".txt";
 var selector = '#seltion';
 var num;
-var pages = new Array(2);
+var pages = new Array(99);
 
 var casper = require('casper').create({
     logLevel: "debug",
     verbose: true
 });
 var fs = require('fs');
+
+function procData() {
+    casper.waitForSelector('#footBox');
+    var text = casper.evaluate(function getNumFromPage() {
+        var table = document.getElementById('wrapper').getElementsByClassName('col-cont')[1];
+        var list = table.getElementsByClassName('basic-box clearfix fang5')[0];
+        var cont = list.innerText;
+        return list.innerText;
+    });
+    return text;
+};
 
 function getData() {
     casper.waitForSelector(selector);
@@ -44,7 +55,7 @@ function getData() {
     //console.log(num);
     num.forEach(function debug5(para) {
         console.log(para);
-        fs.write(myfile, para+'\n', 'a'); 
+        //fs.write(myfile, para+'\n', 'a'); 
     });
 };
 
@@ -62,6 +73,20 @@ casper.then(function debug3(){
         url = html + url;
         casper.thenOpen(url, function () {
             getData();
+        });
+    });
+});
+
+casper.then(function debug3(){
+    num.forEach(function followLinks(url) {
+        casper.thenOpen(url, function () {
+            var text = procData();
+            console.log(url);
+            console.log(text);
+            if (text.indexOf('经纪人') < 0) {
+                fs.write(myfile, url+'\n', 'a'); 
+                fs.write(myfile, text+'\n', 'a'); 
+            }
         });
     });
 });

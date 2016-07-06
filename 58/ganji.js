@@ -73,20 +73,17 @@ casper.then(function debug3(){
         url = html + url;
         casper.thenOpen(url, function () {
             getData();
-        });
-    });
-});
-
-casper.then(function debug3(){
-    num.forEach(function followLinks(url) {
-        casper.thenOpen(url, function () {
-            var text = procData();
-            console.log(url);
-            console.log(text);
-            if (text.indexOf('经纪人') < 0) {
-                fs.write(myfile, url+'\n', 'a'); 
-                fs.write(myfile, text+'\n', 'a'); 
-            }
+            num.forEach(function followLinks(url) {
+                casper.thenOpen(url, function () {
+                    var text = procData();
+                    console.log(url);
+                    console.log(text);
+                    if (text.indexOf('经纪人') < 0) {
+                        fs.write(myfile, url+'\n', 'a'); 
+                        fs.write(myfile, text+'\n', 'a'); 
+                    }
+                });
+            });
         });
     });
 });

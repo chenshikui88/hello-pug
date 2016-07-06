@@ -1,4 +1,4 @@
-var html = 'http://sz.58.com/ershoufang/'; // args[4] is first arg of this js
+var html = 'http://sz.58.com/nanshan/ershoufang/'; // args[4] is first arg of this js
 var date = new Date();
 var path = "/home/douglas/pybug/hello-pug/trunk/58/";
 var month = date.getMonth()+1;
@@ -14,6 +14,7 @@ var casper = require('casper').create({
 var fs = require('fs');
 
 function getData() {
+    //casper.wait(3000);
     casper.waitForSelector(selector);
     num = casper.evaluate(function getNumFromPage() {
         var data  = new Array();
@@ -30,15 +31,13 @@ function getData() {
                 continue;
             }
             var price = one.getElementsByClassName('t')[0].getElementsByClassName('qj-listright btall')[0].getElementsByClassName('pri')[0].innerText.trim();
-            if (parseInt(price) < 400) // skip < 2000 thousands 
-                continue;
+            //if (parseInt(price) < 400) // skip < 2000 thousands 
+            //    continue;
             
             data[m] = '[ ' + m + ' ]\n' + jjr + '\n';
             data[m] += one.getElementsByClassName('t')[0].getElementsByClassName('bthead')[0].getElementsByTagName('a')[0].getAttribute('href'); 
             m++;
         }
-        //if (0 == m)
-        //    data[0] = n;
         return data;
     });
     //console.log(num);

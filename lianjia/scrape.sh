@@ -11,3 +11,4 @@ casperjs lj.js 鼎太风华 &
 casperjs lj.js 诺德假日 &
 casperjs lj.js 中海阳光玫瑰 &
 casperjs lj.js 招商名仕 &
+casperjs lj.js 信和自由 &

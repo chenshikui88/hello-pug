@@ -64,13 +64,10 @@ casper.start(html);
 
 casper.then(function() {
     casper.waitForSelector(selector);
-    href = casper.evaluate(function() {
-        return document.getElementById('sogou_vr_11002301_box_0').getAttribute('href');
+    num[0] = casper.evaluate(function() {
+        return document.getElementById('sogou_vr_11002301_box_0').getElementsByClassName('txt-box')[0].getElementsByClassName('s-p3')[1].getElementsByClassName('sp-txt')[0].getElementsByTagName('a')[0].getAttribute('href');
     });
-});
-
-casper.then(function (){
-    casper.thenOpen(href, getData);
+    console.log(num[0]);
 });
 
 casper.then(function(){
@@ -81,19 +78,6 @@ casper.then(function(){
 casper.then(function debug3(){
     getDeal();
 });
-
-/* Get last 10 historys.
-casper.then(function debug3(){
-    num.forEach(function debug2(link){
-        casper.thenOpen(link, function(){
-            casper.waitForSelector('#js_content');
-        });
-        casper.then(function(){
-            getDeal();
-        });
-    });
-});
-*/
 
 casper.run();
 

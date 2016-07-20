@@ -1,1 +1,8 @@
-30 22 * * * root /usr/local/bin/scrape.sh
+*/3 * * * * /usr/sbin/snapshot _sbin_ 3 48
+*/1 * * * * /usr/sbin/snapshot _thin2_ 1 5
+0 8,16 * * * /home/douglas/pybug/hello-pug/trunk/58/scrape.sh
+0 12 * * * /home/douglas/pybug/hello-pug/trunk/lianjia/scrape.sh
+0 12 * * 3 /home/douglas/pybug/hello-pug/trunk/qianhai/scrape.sh
+0 12 * * 3 /home/douglas/pybug/hello-pug/trunk/stores/scrape.sh
+30 7 * * * /home/douglas/pybug/data/scrape.sh
+
